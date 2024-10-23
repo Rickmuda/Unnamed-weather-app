@@ -1,16 +1,21 @@
 @font-face {
   font-family: 'playground';
-  src: url('./fonts/rockers.ttf');
+  src: url('./fonts/heatrix.otf');
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: 'playground', sans-serif;
+  height: 100%; /* Full height for html and body */
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
-p {
-
+body {
+  background-color: #ffeecc; /* Default background color */
+  transition: background-color 0.5s ease; /* Smooth transition for background color change */
 }
 
 .parent {
@@ -19,22 +24,45 @@ p {
   grid-template-rows: 0.5fr 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  }
-  
-  .city { 
-    grid-area: 1 / 1 / 2 / 6;
-    font-size: 5em;
-    margin: 0;
-    text-align: center; 
-  }
+  text-align: center; /* Center text in grid items */
+  width: 80%; /* Optional: limits the width of the parent */
+  max-width: 1200px; /* Optional: limits the max width for larger screens */
+}
 
-  .img { 
-    grid-area: 2 / 2 / 3 / 5; 
-    margin-left: 25%;
-  }
+.city { 
+  grid-area: 1 / 1 / 2 / 6;
+  font-size: 5em;
+  margin: 0;
+}
 
-  .temp { 
-    grid-area: 2 / 1 / 3 / 2;
-    font-size: 4em;
-    margin-left: 25%;
-  }
+.img { 
+  grid-area: 2 / 2 / 3 / 5; 
+  justify-self: center; /* Center image in its grid cell */
+}
+
+.temp { 
+  grid-area: 2 / 1 / 3 / 2;
+  font-size: 4em;
+  justify-self: center; /* Center temperature text in its grid cell */
+}
+
+/* Define colors for different weather conditions */
+.cold {
+  background-color: #2e2e2e; /* Dark gray for cold weather */
+}
+
+.warm {
+  background-color: #ffeecc; /* Light beige for warm weather */
+}
+
+button {
+  grid-area: 2 / 5 / 3 / 6;
+  font-size: 1.5em;
+  background-color: #ffcc00; /* Yellow button */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.5s ease; /* Smooth transition for button color change */
+  padding: 10px 20px;
+}

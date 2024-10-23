@@ -7,10 +7,12 @@ function App() {
   const [longitude, setLongitude] = useState(null);
   const [isEvening, setIsEvening] = useState(false);
   const [image, setImage] = useState(null);
+  const [textColor, setTextColor] = useState('#ffb0a3');
+  const [textStroke, setTextStroke] = useState('1px #ff6973');
 
   useEffect(() => {
     const hours = new Date().getHours();
-    setIsEvening(hours >= 18); // Check if it's 6 PM or later
+    setIsEvening(hours >= 18);
   }, []);
 
   useEffect(() => {
@@ -33,7 +35,9 @@ function App() {
 
   useEffect(() => {
     if (weather) {
-      setImage(getImage(weather.main.temp));
+      const tempInKelvin = weather.main.temp;
+      setImage(getImage(tempInKelvin));
+      updateBackgroundColor(tempInKelvin);
     }
   }, [weather]);
 
@@ -49,38 +53,47 @@ function App() {
   };
 
   const getImage = (temp) => {
-    if (isEvening && temp < 20) {
-      return 'https://i.ytimg.com/vi/rXYm8YLrZwU/maxresdefault.jpg'; // avond warm
-    } else if (isEvening && temp >= 20) {
-      return 'https://i.ytimg.com/vi/0ZRqrphDQWA/maxresdefault.jpg'; // avond koud
-    } else if (!isEvening && temp < 20) {
-      return 'https://hetweermagazine.nl/sites/default/files/styles/schermbreed/public/field/image/pexels-porapak-apichodilok-348523.jpg?itok=wXGyFdrf'; //dag warm
+    const tempInCelsius = temp - 273.15;
+    return tempInCelsius < 18 
+        ? require('./images/sad-weather-app.png') // Below 20°C
+        : require('./images/happy-weather-app.png'); // Above 20°C
+  };
+
+  const updateBackgroundColor = (temp) => {
+    const tempInCelsius = temp - 273.15;
+    const backgroundColor = tempInCelsius <   18 ? "#08001f" : "#d5dd90";
+    
+    // Update text color and stroke based on temperature
+    if (tempInCelsius < 18) {
+      setTextColor('#15788c'); // Light color for cold
+      setTextStroke('1px #00b9be');
     } else {
-      return 'https://kalmeleon.nl/wp-content/uploads/2023/03/koude-dag.jpg'; //dag koud
+      setTextColor('#ffb0a3'); // Dark color for warm
+      setTextStroke('1px #ff6973');
     }
+
+    // Apply the background color
+    document.body.style.backgroundColor = backgroundColor;
   };
 
   return (
     <div style={{ 
-      backgroundColor: isEvening ? '#46425e' : '#ffeecc', 
       height: '100vh', 
-      color: isEvening ? '#15788c' : '#ffb0a3',
-      WebkitTextStroke: isEvening ? '1px #00b9be' : '1px #ff6973' }}>
+      color: textColor,
+      WebkitTextStroke: textStroke,
+      transition: 'color 0.5s, background-color 0.5s' // Smooth transitions
+    }}>
       {weather ? (
-        <div  className='parent'>
-
+        <div className='parent'>
           <div className='city'>
             <h1>{weather.name}</h1>
           </div>
-
           <div className='temp'> 
             <p>{(weather.main.temp - 273.15).toFixed(2)}°C</p>
           </div>
-
           <div className='img'>
             {image && <img src={image} alt="Weather" />}
           </div>
-
         </div>
       ) : (
         <p>Loading weather data...</p>
