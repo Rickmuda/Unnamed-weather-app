@@ -27,6 +27,7 @@ body {
   text-align: center; /* Center text in grid items */
   width: 80%; /* Optional: limits the width of the parent */
   max-width: 1200px; /* Optional: limits the max width for larger screens */
+  margin: 0 auto; /* Center the grid container itself */
 }
 
 .city { 
@@ -37,7 +38,19 @@ body {
 
 .img { 
   grid-area: 2 / 2 / 3 / 5; 
-  justify-self: center; /* Center image in its grid cell */
+  justify-self: center; /* Center image horizontally in its grid cell */
+  align-self: center; /* Center image vertically in its grid cell */
+  display: flex; /* Use flexbox for the image container */
+  justify-content: center; /* Center the image horizontally within the flex container */
+  align-items: center; /* Center the image vertically within the flex container */
+  width: 100%; /* Ensure the container takes full width of its grid area */
+}
+
+.img img {
+  max-width: 100%; /* Make sure the image doesn't overflow its container */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove any default inline spacing */
+  margin: 0 auto; /* Additional centering */
 }
 
 .temp { 
