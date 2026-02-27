@@ -1,81 +1,117 @@
+/* ============================================
+   GLOBAL STYLES - WEATHER APP
+   ============================================ */
+
+/* Custom Fonts */
 @font-face {
   font-family: 'playground';
   src: url('./fonts/heatrix.otf');
+  font-display: swap;
 }
 
-html, body {
+@font-face {
+  font-family: 'planewalker';
+  src: url('./fonts/Planewalker.ttf');
+  font-display: swap;
+}
+
+/* CSS Reset and Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'playground', sans-serif;
-  height: 100%; /* Full height for html and body */
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: #ffeecc; /* Default background color */
-  transition: background-color 0.5s ease; /* Smooth transition for background color change */
+  font-family: 'playground', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  color: white;
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background 1s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.parent {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 0.5fr 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  text-align: center; /* Center text in grid items */
-  width: 80%; /* Optional: limits the width of the parent */
-  max-width: 1200px; /* Optional: limits the max width for larger screens */
-  margin: 0 auto; /* Center the grid container itself */
+/* Root Container */
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
-.city { 
-  grid-area: 1 / 1 / 2 / 6;
-  font-size: 5em;
-  margin: 0;
+/* Selection Styles */
+::selection {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
 }
 
-.img { 
-  grid-area: 2 / 2 / 3 / 5; 
-  justify-self: center; /* Center image horizontally in its grid cell */
-  align-self: center; /* Center image vertically in its grid cell */
-  display: flex; /* Use flexbox for the image container */
-  justify-content: center; /* Center the image horizontally within the flex container */
-  align-items: center; /* Center the image vertically within the flex container */
-  width: 100%; /* Ensure the container takes full width of its grid area */
+::-moz-selection {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
 }
 
-.img img {
-  max-width: 100%; /* Make sure the image doesn't overflow its container */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Remove any default inline spacing */
-  margin: 0 auto; /* Additional centering */
+/* Focus Visible for Accessibility */
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
 }
 
-.temp { 
-  grid-area: 2 / 1 / 3 / 2;
-  font-size: 4em;
-  justify-self: center; /* Center temperature text in its grid cell */
+/* Remove focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
-/* Define colors for different weather conditions */
-.cold {
-  background-color: #2e2e2e; /* Dark gray for cold weather */
+/* Smooth Image Loading */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
-.warm {
-  background-color: #ffeecc; /* Light beige for warm weather */
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
+a:hover {
+  opacity: 0.8;
+}
+
+/* Buttons Base Reset */
 button {
-  grid-area: 2 / 5 / 3 / 6;
-  font-size: 1.5em;
-  background-color: #ffcc00; /* Yellow button */
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  font-family: inherit;
   cursor: pointer;
-  transition: background-color 0.5s ease; /* Smooth transition for button color change */
-  padding: 10px 20px;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* Input Base Reset */
+input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Prevent iOS zoom on input focus */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
 }
